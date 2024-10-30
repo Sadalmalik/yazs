@@ -9,14 +9,27 @@ namespace ZombieShooter
     {
         public void Initialize(GameConfig config)
         {
+            UnityEvents.OnUpdate += Tick;
             UnityEvents.RunCoroutine(LoadMap(config.maps[0]));
         }
 
+        private AsyncOperation _loading;
+
         public IEnumerator LoadMap(MapConfig map)
         {
-            yield return SceneManager.LoadSceneAsync(map.SceneName, LoadSceneMode.Additive);
+            _loading = SceneManager.LoadSceneAsync(map.SceneName, LoadSceneMode.Additive);
+            yield return _loading;
+            _loading = null;
             
             Debug.Log("Scene loaded");
+        }
+
+        private void Tick()
+        {
+            if (_loading != null)
+            {
+                Debug.Log($"Loading progress: {_loading.progress}");
+            }
         }
     }
 }
