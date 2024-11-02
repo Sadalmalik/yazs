@@ -6,12 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ZombieShooter/Scenes/Start.unity
+    path: Assets/ZombieShooter/Scenes/Main.unity
     guid: ad9ea869a99041948af5d71f283b2e80
-  - enabled: 1
+  - enabled: 0
     path: Assets/ZombieShooter/Scenes/UI.unity
     guid: ae1a9be6421bc8d4fb2f7e763dc72ee7
   - enabled: 1
     path: Assets/ZombieShooter/Scenes/Maps/TestMap_01.unity
     guid: c740512a06831024c96a3b39f27982da
+  - enabled: 1
+    path: Assets/ZombieShooter/Scenes/Maps/TestMap_02.unity
+    guid: 54ae59560725d4041816c72cba7dc66e
   m_configObjects: {}

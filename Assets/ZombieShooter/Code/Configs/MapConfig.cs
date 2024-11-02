@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ZombieShooter
 {
@@ -11,6 +12,7 @@ namespace ZombieShooter
         [Header("Description")]
         public string Name;
         public string Description;
+        [FormerlySerializedAs("ScenePath")]
         public string SceneName;
 
         [Header("Settings")]

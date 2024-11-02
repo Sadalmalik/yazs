@@ -11,6 +11,9 @@ namespace ZombieShooter
         {
             UnityEvents.OnUpdate += Tick;
             UnityEvents.RunCoroutine(LoadMap(config.maps[0]));
+            
+            
+            
         }
 
         private AsyncOperation _loading;
@@ -20,6 +23,8 @@ namespace ZombieShooter
             _loading = SceneManager.LoadSceneAsync(map.SceneName, LoadSceneMode.Additive);
             yield return _loading;
             _loading = null;
+            
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(map.SceneName));
             
             Debug.Log("Scene loaded");
         }

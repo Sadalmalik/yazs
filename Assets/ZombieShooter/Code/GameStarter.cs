@@ -8,12 +8,12 @@ namespace ZombieShooter
     {
         public GameConfig config;
 
-        private GameManager _GameManager;
-
         void Start()
         {
-            _GameManager = new GameManager();
-            _GameManager.Initialize(config);
+            DontDestroyOnLoad(gameObject);
+            
+            Service.Register<NetworkManager>().Initialize();
+            Service.Register<GameManager>().Initialize(config);
         }
     }
 }
