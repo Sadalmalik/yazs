@@ -15,10 +15,11 @@ namespace ZombieShooter
     public class NetworkManager : IService
     {
         public const string DataRelay = "Relay";
+
         public async void Initialize()
         {
             UnityEvents.OnUpdate += Tick;
-            
+
             try
             {
                 await UnityServices.InitializeAsync();
@@ -45,13 +46,13 @@ namespace ZombieShooter
             LobbyHeartbeat();
         }
 
-#region Our API
+#region Our network API
 
         public async void CreateGame(bool isPrivate = false)
         {
             // Сначала создаем релэй
             var relayCode = await CreateRelay();
-            
+
             // Затем создаем лобби с кодом релея
             var lobby = await CreateLobby(relayCode, isPrivate);
         }
@@ -60,19 +61,23 @@ namespace ZombieShooter
         {
             // Сначала подклюачемся к лобби
             var lobby = await JoinLobbyByCode(lobbyCode);
-            
+
             // Затем подключаемся к релею
             await JoinRelay(lobby.Data[DataRelay].Value);
         }
 
-        public List<string> SearchGame()
+        public async Task<List<string>> SearchGame()
         {
             return null;
         }
 
+        public async void LeaveGame()
+        {
+        }
+
 #endregion
 
-        
+
 #region LobbyLogic
 
         public Lobby CurrentLobby;
@@ -80,7 +85,7 @@ namespace ZombieShooter
 
         public const float heartbeatDuration = 15;
         private float _nextHeartbeat;
-        
+
         private async Task<Lobby> CreateLobby(string relayCode, bool isPrivate)
         {
             try
@@ -97,7 +102,7 @@ namespace ZombieShooter
                     "No Name Supported", 4, options);
 
                 CurrentLobbyJoinCode = CurrentLobby.LobbyCode;
-                
+
                 return CurrentLobby;
             }
             catch (LobbyServiceException ex)
@@ -112,10 +117,10 @@ namespace ZombieShooter
         {
             if (CurrentLobby == null)
                 return;
-            
+
             if (Time.unscaledTime < _nextHeartbeat)
                 return;
-            
+
             _nextHeartbeat = Time.unscaledTime + heartbeatDuration;
 
             // Why await here?
@@ -134,7 +139,7 @@ namespace ZombieShooter
             {
                 Debug.LogError(ex);
             }
-            
+
             return null;
         }
 
@@ -150,7 +155,7 @@ namespace ZombieShooter
             {
                 Debug.LogError(ex);
             }
-            
+
             return null;
         }
 
@@ -188,7 +193,7 @@ namespace ZombieShooter
         }
 
         // Client
-        public async Task JoinRelay(string joinCode)
+        private async Task JoinRelay(string joinCode)
         {
             try
             {
@@ -199,7 +204,7 @@ namespace ZombieShooter
                 Unity.Netcode.NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(data);
 
                 Unity.Netcode.NetworkManager.Singleton.StartClient();
-                
+
                 RelayJoinCode = joinCode;
             }
             catch (RelayServiceException ex)
