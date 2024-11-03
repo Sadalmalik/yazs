@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace ZombieShooter
@@ -9,6 +10,7 @@ namespace ZombieShooter
         order = 0)]
     public class GameConfig : ScriptableObject
     {
+        public string menuSceneName;
         public MapConfig[] maps;
     }
 }

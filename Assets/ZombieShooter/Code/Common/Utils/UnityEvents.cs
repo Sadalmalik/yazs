@@ -5,6 +5,8 @@ namespace ZombieShooter
 {
     public class UnityEvents : SingletonBehaviour<UnityEvents>
     {
+        public override bool AllowInstantiate => true;
+        
         public static event Action OnUpdate;
         public static event Action OnLateUpdate;
         public static event Action<bool> OnPause;
