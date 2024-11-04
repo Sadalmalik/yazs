@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -61,6 +62,11 @@ namespace ZombieShooter
             await LoadingScreen.Instance.HideAsync();
             
             Debug.Log("Map loaded");
+            
+            Service<NetworkManager>.Get().CreateGame();
+
+            var unit = Object.Instantiate(_config.unitPrefab, Vector3.up, Quaternion.identity);
+            unit.GetComponent<NetworkObject>().Spawn();
         }
 
         private LoadSceneTask _loadingTask;

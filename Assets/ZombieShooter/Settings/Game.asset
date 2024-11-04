@@ -16,3 +16,4 @@ MonoBehaviour:
   maps:
   - {fileID: 11400000, guid: a7b796be9db37c145a24748a31f2d997, type: 2}
   - {fileID: 11400000, guid: cbcf41307e53eed4f9d180a0fd48270a, type: 2}
+  unitPrefab: {fileID: 4550864640055405184, guid: fecbbc8626cdca34797b5e5b08bed24c, type: 3}

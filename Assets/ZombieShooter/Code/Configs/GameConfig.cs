@@ -12,5 +12,6 @@ namespace ZombieShooter
     {
         public string menuSceneName;
         public MapConfig[] maps;
+        public Unit unitPrefab;
     }
 }
